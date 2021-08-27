@@ -1,0 +1,663 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>H3C Platform</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div>
+
+    <div class="flex justify-content-space-between ion-margin-top relative">
+      <div class="absolute full-width line"></div>
+      <div class="flex flex-column justify-content-center full-width"
+        *ngFor="let slide of slides; let index = index; let first = first; let last = last;">
+        <span [ngClass]="{ 'align-self-end': last, 'align-self-center': (!first && !last) }"
+          class="flex flex-column align-items-center justify-content-center bold text-medium radius"
+          style="width: 30px; height: 30px;"
+          [style.background]="slide === currentSlide ? 'var(--ion-color-primary)':'var(--ion-color-light-shade)'"
+          [style.color]="slide === currentSlide ? 'var(--ion-color-light)':'var(--ion-color-dark)'"
+          [ngClass]="{ 'align-self-end': last, 'align-self-center': (!first && !last) }">
+          {{ index + 1 }}
+        </span>
+        <span [style.color]="slide === currentSlide ? 'var(--ion-color-primary)':'var(--ion-color-medium)'"
+          [ngClass]="{ 'align-self-end': last, 'align-self-center': (!first && !last) }"
+          class="flex text-medium bold ion-margin-vertical">
+          {{ slide }}
+        </span>
+      </div>
+    </div>
+
+    <ion-slides [options]="slidesOpts" (ionSlideDidChange)="onSlidesDidChange()"
+      (ionSlideWillChange)="onSlidesChanged()">
+      <ng-container *ngFor="let slide of slides">
+        <ion-slide>
+          <div class="full-width ion-text-start">
+            <form [formGroup]="userInformationForm" #userFormRef="ngForm" novalidate *ngIf="slide === 'Personal'">
+
+              <ion-list-header class="ion-no-padding" style="min-height: auto;">
+                <ion-label class="ion-text-center" color="primary">
+                  Personal Information
+                </ion-label>
+              </ion-list-header>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">First name</ion-label>
+                    <ion-input type="text" formControlName="first_name"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userFirstName?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Last name</ion-label>
+                    <ion-input type="text" formControlName="last_name"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userLastName?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Email</ion-label>
+                    <ion-input type="email" formControlName="email"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userEmail?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Phone</ion-label>
+                    <ion-input type="tel" formControlName="phone"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userPhone?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Date Of Birth</ion-label>
+                    <ion-datetime displayFormat="DD-MMM-YYYY" formControlName="dob"></ion-datetime>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userDOB?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Gender</ion-label>
+                    <ion-select value="" formControlName="gender">
+                      <ion-select-option value="Agender">Agender</ion-select-option>
+                      <ion-select-option value="Androgyne">Androgyne</ion-select-option>
+                      <ion-select-option value="Androgynous">Androgynous</ion-select-option>
+                      <ion-select-option value="Bigender">Bigender</ion-select-option>
+                      <ion-select-option value="Cis">Cis</ion-select-option>
+                      <ion-select-option value="Cisgender">Cisgender</ion-select-option>
+                      <ion-select-option value="Cis Female">Cis Female</ion-select-option>
+                      <ion-select-option value="Cis Male">Cis Male</ion-select-option>
+                      <ion-select-option value="Cis Man">Cis Man</ion-select-option>
+                      <ion-select-option value="Cis Woman">Cis Woman</ion-select-option>
+                      <ion-select-option value="Cisgender Female">Cisgender Female</ion-select-option>
+                      <ion-select-option value="Cisgender Male">Cisgender Male</ion-select-option>
+                      <ion-select-option value="Cisgender Man">Cisgender Man</ion-select-option>
+                      <ion-select-option value="Cisgender Woman">Cisgender Woman</ion-select-option>
+                      <ion-select-option value="Female">Female</ion-select-option>
+                      <ion-select-option value="Female to Male">Female to Male</ion-select-option>
+                      <ion-select-option value="FTM">FTM</ion-select-option>
+                      <ion-select-option value="Gender Fluid">Gender Fluid</ion-select-option>
+                      <ion-select-option value="Gender Nonconforming">Gender Nonconforming</ion-select-option>
+                      <ion-select-option value="Gender Questioning">Gender Questioning</ion-select-option>
+                      <ion-select-option value="Gender Variant">Gender Variant</ion-select-option>
+                      <ion-select-option value="Genderqueer">Genderqueer</ion-select-option>
+                      <ion-select-option value="Intersex">Intersex</ion-select-option>
+                      <ion-select-option value="Male">Male</ion-select-option>
+                      <ion-select-option value="Male to Female">Male to Female</ion-select-option>
+                      <ion-select-option value="MTF">MTF</ion-select-option>
+                      <ion-select-option value="Neither">Neither</ion-select-option>
+                      <ion-select-option value="Neutrois">Neutrois</ion-select-option>
+                      <ion-select-option value="Non-binary">Non-binary</ion-select-option>
+                      <ion-select-option value="Other">Other</ion-select-option>
+                      <ion-select-option value="Pangender">Pangender</ion-select-option>
+                      <ion-select-option value="Trans">Trans</ion-select-option>
+                      <ion-select-option value="Transsexual Woman">Transsexual Woman</ion-select-option>
+                      <ion-select-option value="Trans*">Trans*</ion-select-option>
+                      <ion-select-option value="Trans Female">Trans Female</ion-select-option>
+                      <ion-select-option value="Trans* Female">Trans* Female</ion-select-option>
+                      <ion-select-option value="Trans Male">Trans Male</ion-select-option>
+                      <ion-select-option value="Trans* Male">Trans* Male</ion-select-option>
+                      <ion-select-option value="Trans Man">Trans Man</ion-select-option>
+                      <ion-select-option value="Trans* Man">Trans* Man</ion-select-option>
+                      <ion-select-option value="Trans Person">Trans Person</ion-select-option>
+                      <ion-select-option value="Trans* Person">Trans* Person</ion-select-option>
+                      <ion-select-option value="Trans Woman">Trans Woman</ion-select-option>
+                      <ion-select-option value="Trans* Woman">Trans* Woman</ion-select-option>
+                      <ion-select-option value="Transfeminine">Transfeminine</ion-select-option>
+                      <ion-select-option value="Transgender">Transgender</ion-select-option>
+                      <ion-select-option value="Transgender Female">Transgender Female</ion-select-option>
+                      <ion-select-option value="Transgender Male">Transgender Male</ion-select-option>
+                      <ion-select-option value="Transgender Man">Transgender Man</ion-select-option>
+                      <ion-select-option value="Transgender Person">Transgender Person</ion-select-option>
+                      <ion-select-option value="Transgender Woman">Transgender Woman</ion-select-option>
+                      <ion-select-option value="Transmasculine">Transmasculine</ion-select-option>
+                      <ion-select-option value="Transsexual">Transsexual</ion-select-option>
+                      <ion-select-option value="Transsexual Female">Transsexual Female</ion-select-option>
+                      <ion-select-option value="Transsexual Male">Transsexual Male</ion-select-option>
+                      <ion-select-option value="Transsexual Man">Transsexual Man</ion-select-option>
+                      <ion-select-option value="Transsexual Person">Transsexual Person</ion-select-option>
+                      <ion-select-option value="Two-Spirit">Two-Spirit</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userGender?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Weight</ion-label>
+                    <ion-input type="text" formControlName="weight"></ion-input> lbs
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userWeight?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Height</ion-label>
+                    <ion-input type="text" formControlName="height"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userHeight?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Ethnicity</ion-label>
+                    <ion-select value="" formControlName="ethnicity">
+                      <ion-select-option value="Test"></ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userEthnicity?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Address</ion-label>
+                    <ion-input type="text" formControlName="address"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userAddress?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">City</ion-label>
+                    <ion-input type="text" formControlName="city"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userCity?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">State</ion-label>
+                    <ion-input type="text" formControlName="state"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userState?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Zipcode</ion-label>
+                    <ion-input type="text" formControlName="zip" inputmode="numeric"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userZip?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Country Code</ion-label>
+                    <ion-input type="text" formControlName="country_code" placeholder="two-letter code"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="userCountry?.errors?.required && userFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+            </form>
+
+            <form [formGroup]="medicalInformationForm" #medicalFormRef="ngForm" novalidate *ngIf="slide === 'Medical'">
+
+              <ion-list-header class="ion-no-padding" style="min-height: auto;">
+                <ion-label class="ion-text-center" color="primary">
+                  Medical History
+                </ion-label>
+              </ion-list-header>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Do you have any pre-existing conditions?</ion-label>
+                    <ion-textarea formControlName="preExistingConditions" ></ion-textarea>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalPreExistingConditions?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Please list out any allergies</ion-label>
+                    <ion-textarea formControlName="allergies" ></ion-textarea>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalAllergies?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Please list out any medications prescribed</ion-label>
+                    <ion-textarea formControlName="medList" ></ion-textarea>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalList?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Family Medical History</ion-label>
+                    <ion-textarea formControlName="familyMedicalHostory" ></ion-textarea>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalFamilyHistory?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Vitals</ion-label>
+                    <ion-textarea formControlName="vitals"></ion-textarea>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalVitals?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Please list out any immunization records that you remember</ion-label>
+                    <ion-textarea formControlName="immunizations" ></ion-textarea>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalImmunizations?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">How often do you drink alcohol in a week?</ion-label>
+                    <ion-input type="text" formControlName="alcoholUse"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalAlcoholUse?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Do you smoke?</ion-label>
+                    <ion-list>
+                      <ion-radio-group>
+                        <ion-item>
+                          <ion-label>Yes</ion-label>
+                          <ion-radio formControlName="smoking" value="Yes"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                          <ion-label>No</ion-label>
+                          <ion-radio formControlName="smoking" value="No"></ion-radio>
+                        </ion-item>
+                      </ion-radio-group>
+                    </ion-list>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalSmoking?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">How often do you exercise in a week?</ion-label>
+                    <ion-input type="text" formControlName="dailyActivity"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalDailyActivity?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">What are your nutrition habits?</ion-label>
+                    <ion-textarea formControlName="nutrition"></ion-textarea>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalNutrition?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">How many dependents do you claim?</ion-label>
+                    <ion-input type="text" formControlName="numberOfDependents"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalNumberOfDependents?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">How often do you visit a doctor?</ion-label>
+                    <ion-input type="text" formControlName="medicalCareFrequency"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalCareFrequency?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Are you employed?</ion-label>
+                    <ion-list radio-group>
+                      <ion-item>
+                        <ion-label>Yes</ion-label>
+                        <ion-radio formControlName="employmentStatus" value="Yes"></ion-radio>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>No</ion-label>
+                        <ion-radio formControlName="employmentStatus" value="No"></ion-radio>
+                      </ion-item>
+                    </ion-list>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalEmploymentStatus?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">General Stress Level</ion-label>
+                    <ion-input type="text" formControlName="generalStressLevel"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalStressLevel?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Care Summary</ion-label>
+                    <ion-textarea formControlName="careSummary" ></ion-textarea>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="medicalCareSummary?.errors?.required && medicalFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+            </form>
+
+            <form [formGroup]="covidInformationForm" #covidFormRef="ngForm" novalidate *ngIf="slide === 'Covid'">
+
+
+              <ion-list-header class="ion-no-padding" style="min-height: auto;">
+                <ion-label class="ion-text-center" color="primary">
+                  Covid Information
+                </ion-label>
+              </ion-list-header>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Have you been diagnosed with covid?</ion-label>
+                    <ion-list radio-group>
+                      <ion-item>
+                        <ion-label>Yes</ion-label>
+                        <ion-radio formControlName="diagnosedCovid" value="Yes"></ion-radio>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>No</ion-label>
+                        <ion-radio formControlName="diagnosedCovid" value="No"></ion-radio>
+                      </ion-item>
+                    </ion-list>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="covidIsDiagnosed?.errors?.required && covidFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Were you asymptomatic or symptomatic with your COVID-19 diagnosis?</ion-label>
+                    <ion-list radio-group>
+                      <ion-item>
+                        <ion-label>Yes</ion-label>
+                        <ion-radio formControlName="isSymptomatic" value="Yes"></ion-radio>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>No</ion-label>
+                        <ion-radio formControlName="isSymptomatic" value="Yes"></ion-radio>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>Prefer not to answer</ion-label>
+                        <ion-radio formControlName="isSymptomatic" value="Prefer not to answer"></ion-radio>
+                      </ion-item>
+                    </ion-list>
+                  </ion-item>
+                  <ion-text color="danger">
+                    <span class="text-tiny"
+                      [style.visibility]="covidIsSymptomatic?.errors?.required && covidFormRef.submitted ? '' : 'hidden'">
+                      Field required
+                    </span>
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+              
+
+              <div class="ion-text-center">
+                <ion-button type="button" style="width: 200px;" class="ion-margin-vertical" strong size="large"
+                  shape="round" color="primary" (click)="onNextButtonTouched()">
+                  Finish
+                </ion-button>
+              </div>
+
+              <div class="ion-text-center">
+                <ion-button type="button" style="width: 200px;" class="ion-margin-vertical" strong size="large"
+                  shape="round" color="light" (click)="onBackButtonTouched()">
+                  Back
+                </ion-button>
+              </div>
+
+            </form>
+          </div>
+        </ion-slide>
+      </ng-container>
+    </ion-slides>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="full-width flex align-items-center justify-content-space-between">
+      <ion-button style="width: 120px;" strong shape="round" color="dark"
+        [style.visibility]="(isBeginning || isEnd) ? 'hidden' : ''" (click)="onBackButtonTouched()">
+        <span>Back</span>
+        <ion-icon slot="start" name="chevron-back"></ion-icon>
+      </ion-button>
+      <ion-button style="width: 120px;" strong shape="round" color="primary" [style.visibility]="isEnd ? 'hidden' : ''"
+        (click)="onNextButtonTouched()">
+        <span>Next</span>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
