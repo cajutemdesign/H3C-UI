@@ -1,0 +1,13 @@
+{
+	"appId": "io.h3c.platform",
+	"appName": "h3c",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
+	},
+	"cordova": {}
+}

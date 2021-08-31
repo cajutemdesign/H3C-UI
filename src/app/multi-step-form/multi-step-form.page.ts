@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActionSheetController, IonContent, IonSlides, NavController } from '@ionic/angular';
 import { AbstractControl, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+// import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-const { Camera } = Plugins;
+// const { Camera } = Plugins;
 
 @Component({
   selector: 'app-multi-step-form',
@@ -427,7 +427,7 @@ export class MultiStepFormPage implements OnInit {
     reader.readAsDataURL(blob);
   });
 
-  async chooseImage(source: CameraSource) {
+  /*async chooseImage(source: CameraSource) {
 
     try {
 
@@ -479,7 +479,7 @@ export class MultiStepFormPage implements OnInit {
     });
 
     return await actionSheet.present();
-  }
+  }*/
 
   originalOrder = (): number => {
     return 0;
